@@ -41,139 +41,131 @@ BG_IMAGE = get_image_data(
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
-    :root {{ --red:#ff3d3d; --white:#f7f7f8; }}
+    :root { --red:#ff3434; --white:#f5f5f5; --muted:#b8b8bc; }
 
-    html, body, [data-testid="stAppViewContainer"] {{ background:#030405 !important; }}
-    .stApp {{
-        min-height:100vh; background:#030405 !important; color:var(--white);
+    html, body, [data-testid="stAppViewContainer"] { background:#050505 !important; }
+    .stApp {
+        min-height:100vh; background:transparent !important; color:var(--white);
         font-family:'Cairo','Plus Jakarta Sans',sans-serif;
-    }}
+    }
 
-    /* الصورة الثانية: خلفية كاملة للصفحة */
-    .background-car {{
+    /* الخلفية الثانية: تغطي الموقع كله */
+    .background-car {
         position:fixed; inset:0; z-index:0; pointer-events:none;
         background-image:url("{BG_IMAGE}");
         background-size:cover; background-position:center center;
-        background-repeat:no-repeat; filter:brightness(1.22) contrast(1.08);
-        opacity:.96;
-    }}
-    .background-car::before {{
+        background-repeat:no-repeat; opacity:.72;
+    }
+    .background-car::before {
         content:""; position:absolute; inset:0;
         background:
-          linear-gradient(90deg,rgba(0,0,0,.42),rgba(0,0,0,.08) 52%,rgba(0,0,0,.30)),
-          linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.04) 48%,rgba(0,0,0,.68));
-    }}
+          linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.40) 48%,rgba(0,0,0,.56) 100%),
+          linear-gradient(180deg,rgba(0,0,0,.30),rgba(0,0,0,.08) 40%,rgba(0,0,0,.82) 100%);
+    }
 
-    .main .block-container {{
-        position:relative; z-index:2; max-width:1220px;
+    .main .block-container {
+        position:relative; z-index:2; max-width:1240px;
         padding-top:1rem; padding-bottom:4rem;
-    }}
+    }
 
-    /* الـHero: الصورة الأولى هي العنصر الرئيسي نفسه */
-    .hero-box {{
-        position:relative; width:min(980px,94%); height:405px;
-        margin:22px auto 28px; overflow:hidden; isolation:isolate;
-        clip-path:polygon(7% 17%,17% 6%,30% 2%,70% 2%,83% 6%,93% 17%,
-                           98% 72%,91% 90%,76% 97%,24% 97%,9% 90%,2% 72%);
+    /* HERO جديد: بدون صندوق. الصورة نفسها هي العنصر البصري الرئيسي */
+    .hero-box {
+        position:relative; width:min(1180px,96%); min-height:500px;
+        margin:12px auto 12px; overflow:hidden; isolation:isolate;
+        border:0; background:transparent;
+    }
+    .hero-box::before {
+        content:""; position:absolute; z-index:1;
+        right:0; top:20px; width:62%; height:460px;
+        background:url("{HERO_IMAGE}") center 38% / cover no-repeat;
+        border-radius:58% 12% 12% 48% / 48% 18% 18% 52%;
+        filter:contrast(1.08) brightness(1.08);
+        box-shadow:24px 28px 70px rgba(0,0,0,.60);
+    }
+    .hero-box::after {
+        content:""; position:absolute; z-index:2;
+        right:0; top:20px; width:68%; height:460px;
         background:
-          linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.60)),
-          url("{HERO_IMAGE}") center 45% / cover no-repeat;
-        box-shadow:0 28px 90px rgba(0,0,0,.75),0 0 65px rgba(255,61,61,.08);
-    }}
-    .hero-box::before {{
-        content:""; position:absolute; inset:0; z-index:1;
-        background:
-          linear-gradient(90deg,rgba(0,0,0,.48),rgba(0,0,0,.06) 50%,rgba(0,0,0,.40)),
-          linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.70));
-    }}
-    .hero-box::after {{
-        content:""; position:absolute; z-index:2; left:15%; right:15%; bottom:12px;
-        height:2px;
-        background:linear-gradient(90deg,transparent,#fff,var(--red),#fff,transparent);
-        box-shadow:0 0 18px rgba(255,61,61,.5);
-    }}
-    .hero-content {{
-        position:absolute; z-index:5; inset:0; display:flex;
-        flex-direction:column; justify-content:center; align-items:center;
-        text-align:center; padding:30px;
-    }}
-    .hero-kicker {{
-        display:inline-flex; padding:8px 17px; margin-bottom:15px;
-        border:1px solid rgba(255,255,255,.25); border-radius:999px;
-        background:rgba(0,0,0,.42); color:#eee;
+          linear-gradient(90deg,rgba(3,3,3,1) 0%,rgba(3,3,3,.62) 19%,rgba(3,3,3,.10) 48%,rgba(3,3,3,.16) 100%),
+          linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.58));
+        border-radius:58% 12% 12% 48% / 48% 18% 18% 52%;
+        pointer-events:none;
+    }
+    .hero-content {
+        position:relative; z-index:5; width:55%; min-height:500px;
+        display:flex; flex-direction:column; justify-content:center;
+        align-items:flex-start; text-align:left; padding:30px 0 30px 5%;
+    }
+    .hero-kicker {
+        display:inline-flex; padding:8px 15px; margin-bottom:18px;
+        border:1px solid rgba(255,255,255,.20); border-radius:999px;
+        background:rgba(0,0,0,.38); color:#e8e8e8;
         font-family:'Plus Jakarta Sans',sans-serif; font-size:.68rem;
-        font-weight:800; letter-spacing:2px; backdrop-filter:blur(10px);
-    }}
-    .hero-title {{
+        font-weight:800; letter-spacing:2px; backdrop-filter:blur(8px);
+    }
+    .hero-title {
         margin:0; color:#fff; font-family:'Plus Jakarta Sans','Cairo',sans-serif;
-        font-size:clamp(3rem,7vw,6rem); line-height:.95; font-weight:800;
-        letter-spacing:-4px; text-shadow:0 8px 30px #000;
-    }}
-    .hero-title span {{ color:var(--red); text-shadow:0 0 30px rgba(255,61,61,.28); }}
-    .hero-subtitle {{
-        color:#f0f0f2; font-size:1rem; max-width:720px; margin:18px auto 0;
-        line-height:1.9; text-shadow:0 3px 18px #000;
-    }}
+        font-size:clamp(3.2rem,6.5vw,6.2rem); line-height:.92; font-weight:800;
+        letter-spacing:-5px; text-shadow:0 8px 35px rgba(0,0,0,.85);
+    }
+    .hero-title span { color:#fff; }
+    .hero-title span::after {
+        content:""; display:block; width:82px; height:5px; margin-top:18px;
+        border-radius:999px; background:var(--red);
+        box-shadow:0 0 22px rgba(255,52,52,.50);
+    }
+    .hero-subtitle {
+        color:#e4e4e7; font-size:1rem; max-width:520px; margin:20px 0 0;
+        line-height:1.9; text-shadow:0 3px 20px #000;
+    }
 
-    /* البحث */
-    [data-testid="stTextInput"] {{
+    /* البحث: أنيق وبسيط حتى لا ينافس صورة العربية */
+    [data-testid="stTextInput"] {
         position:relative; z-index:10; width:min(760px,100%);
-        margin:0 auto !important; padding:8px !important;
-        border:1px solid rgba(255,255,255,.18) !important; border-radius:22px !important;
-        background:rgba(5,6,8,.72) !important;
-        box-shadow:0 20px 55px rgba(0,0,0,.65) !important;
-        backdrop-filter:blur(16px);
-    }}
-    [data-testid="stTextInput"]::before {{
-        content:""; position:absolute; top:-2px; left:50%; width:145px; height:3px;
-        transform:translateX(-50%); border-radius:99px;
-        background:linear-gradient(90deg,transparent,var(--red),transparent);
-        box-shadow:0 0 18px rgba(255,61,61,.55);
-    }}
-    [data-testid="stTextInput"] input {{
-        background:rgba(0,0,0,.52) !important;
-        border:1px solid rgba(255,255,255,.20) !important; color:#fff !important;
-        border-radius:15px !important; height:60px !important;
+        margin:0 auto !important; padding:7px !important;
+        border:1px solid rgba(255,255,255,.18) !important; border-radius:18px !important;
+        background:rgba(10,10,11,.78) !important;
+        box-shadow:0 18px 45px rgba(0,0,0,.58) !important;
+        backdrop-filter:blur(14px);
+    }
+    [data-testid="stTextInput"]::before {
+        content:""; position:absolute; top:-1px; left:9%; width:82%; height:2px;
+        border-radius:99px; background:linear-gradient(90deg,transparent,#fff,var(--red),#fff,transparent);
+        opacity:.85;
+    }
+    [data-testid="stTextInput"] input {
+        background:rgba(255,255,255,.045) !important;
+        border:1px solid rgba(255,255,255,.15) !important; color:#fff !important;
+        border-radius:12px !important; height:58px !important;
         padding-left:22px !important; padding-right:68px !important;
-        font-size:1.04rem !important; direction:rtl; text-align:right;
-    }}
-    [data-testid="stTextInput"] input::placeholder {{ color:#d2d3d6 !important; }}
-    [data-testid="stTextInput"] input:focus {{
-        border-color:rgba(255,61,61,.72) !important;
-        box-shadow:0 0 0 3px rgba(255,61,61,.08),0 0 24px rgba(255,61,61,.16) !important;
-    }}
+        font-size:1.02rem !important; direction:rtl; text-align:right;
+    }
+    [data-testid="stTextInput"] input::placeholder { color:#c7c7cb !important; }
+    [data-testid="stTextInput"] input:focus {
+        border-color:rgba(255,52,52,.72) !important;
+        box-shadow:0 0 0 3px rgba(255,52,52,.07),0 0 24px rgba(255,52,52,.14) !important;
+    }
 
-    [data-testid="stFileUploader"] {{
-        margin-top:-60px !important; height:60px !important; display:flex !important;
+    [data-testid="stFileUploader"] {
+        margin-top:-58px !important; height:58px !important; display:flex !important;
         justify-content:flex-end !important; align-items:center !important;
-        padding-right:18px !important; pointer-events:none !important;
-        border:none !important; background:transparent !important;
-        position:relative; z-index:20;
-    }}
-    [data-testid="stFileUploader"] section {{
-        padding:0 !important; min-height:unset !important; border:none !important;
-        background:transparent !important; pointer-events:auto !important;
-    }}
-    [data-testid="stFileUploaderDropzone"] {{ padding:0 !important; border:none !important; background:transparent !important; }}
+        padding-right:16px !important; pointer-events:none !important;
+        border:none !important; background:transparent !important; position:relative; z-index:20;
+    }
+    [data-testid="stFileUploader"] section { padding:0 !important; min-height:unset !important; border:none !important; background:transparent !important; pointer-events:auto !important; }
+    [data-testid="stFileUploaderDropzone"] { padding:0 !important; border:none !important; background:transparent !important; }
     [data-testid="stFileUploaderDropzoneInstructions"],
-    [data-testid="stFileUploaderDropzone"] > div:not(:has(button)) {{ display:none !important; }}
-    [data-testid="stFileUploader"] button {{
-        width:42px !important; height:42px !important; border-radius:13px !important;
-        background:rgba(255,255,255,.08) !important;
-        border:1px solid rgba(255,255,255,.22) !important; padding:4px !important;
-        color:#fff !important; transition:.2s ease !important;
-    }}
-    [data-testid="stFileUploader"] button:hover {{
-        transform:scale(1.07); background:rgba(255,61,61,.16) !important;
-        border-color:var(--red) !important; box-shadow:0 0 20px rgba(255,61,61,.25) !important;
-    }}
-    [data-testid="stFileUploader"] button::before {{ content:"📷"; font-size:1.12rem; }}
+    [data-testid="stFileUploaderDropzone"] > div:not(:has(button)) { display:none !important; }
+    [data-testid="stFileUploader"] button {
+        width:40px !important; height:40px !important; border-radius:11px !important;
+        background:rgba(255,255,255,.08) !important; border:1px solid rgba(255,255,255,.20) !important;
+        padding:4px !important; color:#fff !important; transition:.2s ease !important;
+    }
+    [data-testid="stFileUploader"] button:hover { transform:scale(1.07); background:rgba(255,52,52,.14) !important; border-color:var(--red) !important; }
+    [data-testid="stFileUploader"] button::before { content:"📷"; font-size:1.08rem; }
     [data-testid="stFileUploader"] button span,
-    [data-testid="stFileUploader"] button p {{ display:none !important; }}
-    [data-testid="stFileUploaderFile"] {{
-        margin-top:14px !important; background:rgba(5,6,8,.88) !important;
-        border:1px solid rgba(255,255,255,.16) !important; border-radius:12px !important;
-    }}
+    [data-testid="stFileUploader"] button p { display:none !important; }
+    [data-testid="stFileUploaderFile"] { margin-top:14px !important; background:rgba(5,5,6,.90) !important; border:1px solid rgba(255,255,255,.15) !important; border-radius:12px !important; }
 
     .car-card {{
         background:rgba(5,6,8,.78); border:1px solid rgba(255,255,255,.15);
@@ -187,10 +179,12 @@ st.markdown(f"""
     .deal-badge-fair {{ background:rgba(234,179,8,.13); border:1px solid rgba(234,179,8,.65); color:#fde047; font-weight:700; padding:4px 12px; border-radius:20px; font-size:.85rem; }}
 
     @media (max-width:700px) {{
-        .background-car {{ background-position:center center; opacity:.84; }}
-        .hero-box {{ width:98%; height:330px; }}
-        .hero-title {{ font-size:3rem; letter-spacing:-2px; }}
-        .hero-subtitle {{ font-size:.86rem; }}
+        .background-car {{ background-position:center center; opacity:.60; }}
+        .hero-box {{ width:100%; min-height:570px; }}
+        .hero-box::before, .hero-box::after {{ right:-18%; top:30px; width:112%; height:360px; opacity:.78; }}
+        .hero-content {{ width:100%; min-height:570px; justify-content:flex-end; padding:30px 7% 70px; text-align:center; align-items:center; }}
+        .hero-title {{ font-size:3.2rem; letter-spacing:-2px; }}
+        .hero-subtitle {{ font-size:.86rem; max-width:90%; }}
     }}
 </style>
 """, unsafe_allow_html=True)
