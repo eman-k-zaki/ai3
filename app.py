@@ -40,206 +40,282 @@ st.markdown(f"""
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
     :root {{
-        --accent: #e5e7eb;
-        --accent-strong: #ffffff;
-        --red: #ef4444;
-        --glass: rgba(7, 9, 12, 0.68);
-        --line: rgba(255,255,255,0.14);
+        --accent: #f4f4f5;
+        --red: #ff3b3b;
+        --red-soft: rgba(255,59,59,0.22);
+        --glass: rgba(5,7,10,0.72);
+        --line: rgba(255,255,255,0.15);
     }}
 
-    /* الخلفية: الصورة كاملة قدر الإمكان في أعلى الصفحة، مع تعتيم خفيف فقط */
+    html, body, [data-testid="stAppViewContainer"] {{
+        background: #050608 !important;
+    }}
+
     .stApp {{
-        background: #030405 !important;
+        background: #050608 !important;
         color: #f8fafc;
         font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
     }}
 
+    /* =========================================================
+       CAR IMAGE — الصورة نفسها واضحة في الخلفية
+       ========================================================= */
     .stApp::before {{
         content: "";
         position: fixed;
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        background-image:
-            linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.92) 100%),
-            url("{BG_IMAGE}");
-        background-position: center top;
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        background-color: #030405;
+        background:
+            linear-gradient(90deg,
+                rgba(3,4,6,0.70) 0%,
+                rgba(3,4,6,0.34) 42%,
+                rgba(3,4,6,0.12) 100%);
     }}
 
-    .stApp::after {{
-        content: "";
+    .car-background {{
         position: fixed;
         inset: 0;
         z-index: 0;
         pointer-events: none;
-        background: radial-gradient(ellipse at 50% 24%, transparent 0%, rgba(0,0,0,0.12) 48%, rgba(0,0,0,0.52) 100%);
+        background-image: url("{BG_IMAGE}");
+        background-repeat: no-repeat;
+        background-position: 78% 42%;
+        background-size: auto 88vh;
+        filter: brightness(1.32) contrast(1.12);
+        opacity: 0.92;
+    }}
+
+    .car-background::after {{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(180deg,
+                rgba(4,5,7,0.08) 0%,
+                rgba(4,5,7,0.06) 48%,
+                rgba(4,5,7,0.62) 100%);
     }}
 
     .main .block-container {{
         position: relative;
-        z-index: 1;
-        padding-top: 0.7rem;
-        padding-bottom: 3rem;
-        max-width: 1180px;
+        z-index: 2;
+        padding-top: 0.4rem;
+        padding-bottom: 4rem;
+        max-width: 1200px;
     }}
 
-    /* =========================
-       HERO — تصميم سيارات فاخر
-       ========================= */
+    /* =========================================================
+       HERO — شكل مقدمة عربية رياضية بدل المربع
+       ========================================================= */
     .hero-box {{
         position: relative;
+        width: min(900px, 94%);
+        min-height: 335px;
+        margin: 25px auto 32px;
+        padding: 64px 60px 55px;
         text-align: center;
-        margin: 28px auto 24px auto;
-        padding: 42px 34px 34px;
-        max-width: 900px;
-        border: 1px solid rgba(255,255,255,0.13);
-        border-radius: 30px;
-        background: linear-gradient(180deg, rgba(8,10,13,0.66), rgba(8,10,13,0.38));
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 25px 80px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.08);
         overflow: hidden;
+
+        /* silhouette لواجهة سيارة */
+        clip-path: polygon(
+            7% 77%,
+            10% 47%,
+            18% 38%,
+            27% 17%,
+            36% 7%,
+            64% 7%,
+            73% 17%,
+            82% 38%,
+            90% 47%,
+            93% 77%,
+            86% 91%,
+            14% 91%
+        );
+
+        background:
+            linear-gradient(180deg,
+                rgba(31,33,37,0.93) 0%,
+                rgba(9,10,13,0.96) 62%,
+                rgba(3,4,6,0.98) 100%);
+        box-shadow:
+            0 28px 80px rgba(0,0,0,0.62),
+            inset 0 1px 0 rgba(255,255,255,0.13);
     }}
 
+    /* لمعة على سقف العربية */
     .hero-box::before {{
         content: "";
         position: absolute;
-        top: 0;
-        left: 12%;
-        right: 12%;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #ffffff, #ef4444, #ffffff, transparent);
-        opacity: 0.9;
-    }}
-
-    .hero-box::after {{
-        content: "";
-        position: absolute;
-        width: 240px;
-        height: 240px;
-        left: 50%;
-        top: -150px;
-        transform: translateX(-50%);
-        background: rgba(255,255,255,0.08);
-        filter: blur(60px);
+        left: 27%;
+        right: 27%;
+        top: 20px;
+        height: 72px;
         border-radius: 50%;
+        background: linear-gradient(180deg,
+            rgba(255,255,255,0.16),
+            rgba(255,255,255,0));
+        filter: blur(3px);
         pointer-events: none;
     }}
 
-    .hero-kicker {{
+    /* خط الشبكة الأمامية */
+    .hero-box::after {{
+        content: "";
+        position: absolute;
+        left: 37%;
+        right: 37%;
+        bottom: 30px;
+        height: 10px;
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 0 0 18px 18px;
+        box-shadow:
+            0 4px 0 rgba(255,255,255,0.05),
+            0 0 25px rgba(255,59,59,0.18);
+        pointer-events: none;
+    }}
+
+    .hero-lights {{
+        position: absolute;
+        top: 120px;
+        left: 13%;
+        right: 13%;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+    }}
+
+    .hero-light {{
+        width: 86px;
+        height: 22px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        box-shadow:
+            0 0 8px #fff,
+            0 0 25px rgba(255,255,255,0.7),
+            0 0 45px rgba(255,59,59,0.18);
+        opacity: 0.9;
+    }}
+
+    .hero-content {{
         position: relative;
-        z-index: 1;
+        z-index: 5;
+    }}
+
+    .hero-kicker {{
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 6px 14px;
-        margin-bottom: 15px;
-        border: 1px solid rgba(255,255,255,0.16);
+        padding: 7px 16px;
+        margin-bottom: 13px;
+        border: 1px solid rgba(255,255,255,0.18);
         border-radius: 999px;
-        background: rgba(0,0,0,0.35);
-        color: #d1d5db;
+        background: rgba(0,0,0,0.48);
+        color: #d4d4d8;
         font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 0.72rem;
-        font-weight: 700;
+        font-size: 0.68rem;
+        font-weight: 800;
         letter-spacing: 2px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.35);
     }}
 
     .hero-title {{
-        position: relative;
-        z-index: 1;
         margin: 0;
         color: #ffffff;
         font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
-        font-size: clamp(2.7rem, 6vw, 5rem);
-        line-height: 0.98;
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 1;
         font-weight: 800;
-        letter-spacing: -2.5px;
-        text-shadow: 0 8px 30px rgba(0,0,0,0.65);
+        letter-spacing: -3px;
+        text-shadow: 0 7px 25px rgba(0,0,0,0.75);
     }}
 
     .hero-title span {{
-        color: #ef4444;
+        color: var(--red);
+        text-shadow: 0 0 28px rgba(255,59,59,0.2);
     }}
 
     .hero-subtitle {{
-        position: relative;
-        z-index: 1;
-        color: #d1d5db;
-        font-size: 1rem;
+        color: #e4e4e7;
+        font-size: 0.98rem;
         max-width: 650px;
-        margin: 17px auto 0;
-        line-height: 1.9;
-        text-shadow: 0 3px 15px rgba(0,0,0,0.9);
+        margin: 15px auto 0;
+        line-height: 1.85;
+        text-shadow: 0 3px 15px rgba(0,0,0,0.95);
     }}
 
-    /* =========================
-       SEARCH CONSOLE — شكل أنظف وأقرب للـ dashboard
-       ========================= */
+    /* =========================================================
+       SEARCH — جزء من شكل العربية
+       ========================================================= */
     [data-testid="stTextInput"] {{
         position: relative;
-        z-index: 5;
-        padding: 15px 15px 16px !important;
-        border: 1px solid rgba(255,255,255,0.15) !important;
-        border-radius: 24px !important;
-        background: linear-gradient(180deg, rgba(18,20,24,0.86), rgba(5,7,9,0.86)) !important;
-        box-shadow: 0 25px 65px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07) !important;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        z-index: 10;
+        width: min(720px, 100%);
+        margin: 0 auto !important;
+        padding: 9px !important;
+        border: 1px solid rgba(255,255,255,0.18) !important;
+        border-radius: 20px !important;
+        background: rgba(7,8,10,0.84) !important;
+        box-shadow:
+            0 22px 55px rgba(0,0,0,0.58),
+            inset 0 1px 0 rgba(255,255,255,0.08) !important;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
     }}
 
-    /* خط أحمر صغير يعطي إحساس لوحة قيادة */
     [data-testid="stTextInput"]::before {{
         content: "";
         position: absolute;
-        top: 0;
-        left: 28px;
-        width: 70px;
+        left: 50%;
+        top: -2px;
+        width: 120px;
         height: 3px;
-        background: #ef4444;
-        border-radius: 0 0 5px 5px;
-        box-shadow: 0 0 16px rgba(239,68,68,0.45);
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, transparent, var(--red), transparent);
+        border-radius: 999px;
+        box-shadow: 0 0 18px rgba(255,59,59,0.5);
     }}
 
     [data-testid="stTextInput"] input {{
-        background: rgba(0,0,0,0.48) !important;
-        border: 1px solid rgba(255,255,255,0.12) !important;
+        background: rgba(0,0,0,0.56) !important;
+        border: 1px solid rgba(255,255,255,0.16) !important;
         color: #ffffff !important;
-        border-radius: 16px !important;
-        height: 60px !important;
+        border-radius: 14px !important;
+        height: 58px !important;
         padding-left: 22px !important;
         padding-right: 68px !important;
-        font-size: 1.03rem !important;
-        box-shadow: inset 0 2px 14px rgba(0,0,0,0.42) !important;
-        transition: all 0.25s ease !important;
+        font-size: 1.02rem !important;
+        box-shadow: inset 0 2px 12px rgba(0,0,0,0.48) !important;
+        transition: 0.25s ease !important;
         direction: rtl;
         text-align: right;
     }}
 
     [data-testid="stTextInput"] input::placeholder {{
-        color: #9ca3af !important;
+        color: #b8bac0 !important;
     }}
 
     [data-testid="stTextInput"] input:focus {{
-        border-color: rgba(255,255,255,0.42) !important;
-        box-shadow: 0 0 0 3px rgba(255,255,255,0.06), 0 0 28px rgba(255,255,255,0.08), inset 0 2px 14px rgba(0,0,0,0.42) !important;
+        border-color: rgba(255,255,255,0.38) !important;
+        box-shadow:
+            0 0 0 3px rgba(255,255,255,0.045),
+            0 0 24px rgba(255,59,59,0.12),
+            inset 0 2px 12px rgba(0,0,0,0.48) !important;
     }}
 
-    /* زر رفع الصورة داخل الـ search console */
+    /* رفع الصورة كزر كاميرا داخل البحث */
     [data-testid="stFileUploader"] {{
-        margin-top: -60px !important;
-        height: 60px !important;
+        margin-top: -58px !important;
+        height: 58px !important;
         display: flex !important;
         justify-content: flex-end !important;
         align-items: center !important;
-        padding-right: 28px !important;
+        padding-right: 18px !important;
         pointer-events: none !important;
         border: none !important;
         background: transparent !important;
         position: relative;
-        z-index: 10;
+        z-index: 20;
     }}
 
     [data-testid="stFileUploader"] section {{
@@ -262,27 +338,28 @@ st.markdown(f"""
     }}
 
     [data-testid="stFileUploader"] button {{
-        width: 42px !important;
-        height: 42px !important;
-        border-radius: 13px !important;
-        background: rgba(255,255,255,0.06) !important;
-        border: 1px solid rgba(255,255,255,0.16) !important;
-        box-shadow: none !important;
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 12px !important;
+        background: rgba(255,255,255,0.07) !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.3) !important;
         padding: 4px !important;
         cursor: pointer !important;
-        color: #ffffff !important;
-        transition: all 0.2s ease !important;
+        color: #fff !important;
+        transition: 0.2s ease !important;
     }}
 
     [data-testid="stFileUploader"] button:hover {{
-        transform: translateY(-2px) scale(1.04);
-        background: rgba(239,68,68,0.16) !important;
-        border-color: rgba(239,68,68,0.6) !important;
+        transform: translateY(-2px) scale(1.06);
+        background: rgba(255,59,59,0.16) !important;
+        border-color: rgba(255,59,59,0.7) !important;
+        box-shadow: 0 0 22px rgba(255,59,59,0.2) !important;
     }}
 
     [data-testid="stFileUploader"] button::before {{
         content: "📷";
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }}
 
     [data-testid="stFileUploader"] button span,
@@ -292,27 +369,28 @@ st.markdown(f"""
 
     [data-testid="stFileUploaderFile"] {{
         margin-top: 14px !important;
-        background: rgba(8,10,13,0.82) !important;
+        background: rgba(7,8,10,0.88) !important;
         border: 1px solid rgba(255,255,255,0.14) !important;
         border-radius: 12px !important;
-        pointer-events: auto !important;
     }}
 
-    /* كروت النتائج — نفس الـconcept مع لمسة متناسقة */
+    /* =========================================================
+       RESULTS — نفس الـconcept بدون تغيير في الـlogic
+       ========================================================= */
     .car-card {{
-        background: rgba(8,10,13,0.78);
-        border: 1px solid rgba(255,255,255,0.11);
+        background: rgba(6,8,11,0.82);
+        border: 1px solid rgba(255,255,255,0.13);
         border-radius: 18px;
         padding: 22px;
         margin-bottom: 16px;
-        transition: all 0.2s ease;
-        box-shadow: 0 14px 35px rgba(0,0,0,0.45);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        transition: 0.2s ease;
+        box-shadow: 0 14px 35px rgba(0,0,0,0.5);
+        backdrop-filter: blur(13px);
+        -webkit-backdrop-filter: blur(13px);
     }}
 
     .car-card:hover {{
-        border-color: rgba(255,255,255,0.25);
+        border-color: rgba(255,255,255,0.28);
         transform: translateY(-2px);
     }}
 
@@ -339,7 +417,7 @@ st.markdown(f"""
     .deal-badge-fair {{
         background: rgba(234,179,8,0.13);
         border: 1px solid rgba(234,179,8,0.65);
-        color: #fde68a;
+        color: #fde047;
         font-weight: 700;
         padding: 4px 12px;
         border-radius: 20px;
@@ -347,14 +425,41 @@ st.markdown(f"""
     }}
 
     @media (max-width: 700px) {{
-        .stApp::before {{ background-size: auto 100%; background-position: center top; }}
-        .hero-box {{ margin-top: 15px; padding: 32px 18px 27px; border-radius: 22px; }}
-        .hero-title {{ letter-spacing: -1.5px; }}
-        .hero-subtitle {{ font-size: 0.9rem; }}
-        [data-testid="stTextInput"] {{ border-radius: 20px !important; }}
+        .car-background {{
+            background-size: auto 68vh;
+            background-position: 72% 26%;
+            opacity: 0.82;
+        }}
+
+        .hero-box {{
+            min-height: 300px;
+            padding: 58px 28px 48px;
+            clip-path: polygon(
+                5% 79%, 9% 49%, 17% 39%, 28% 16%,
+                37% 7%, 63% 7%, 72% 16%, 83% 39%,
+                91% 49%, 95% 79%, 86% 92%, 14% 92%
+            );
+        }}
+
+        .hero-light {{
+            width: 55px;
+            height: 17px;
+        }}
+
+        .hero-title {{
+            font-size: 2.65rem;
+            letter-spacing: -1.8px;
+        }}
+
+        .hero-subtitle {{
+            font-size: 0.88rem;
+        }}
     }}
 </style>
 """, unsafe_allow_html=True)
+
+# صورة الخلفية فوق طبقة التطبيق وتحت كل عناصر الواجهة
+st.markdown('<div class="car-background"></div>', unsafe_allow_html=True)
 
 # ==============================================================================
 # 1. تحميل النماذج والبيانات
@@ -459,9 +564,15 @@ def predict_vision_top5(image_pil, top_k=5):
 # ==============================================================================
 st.markdown("""
 <div class="hero-box">
-    <div class="hero-kicker">✦ SMART CAR MARKET</div>
-    <div class="hero-title">Apex <span>Motors</span></div>
-    <div class="hero-subtitle">اكتشف عربيتك المناسبة بذكاء — ابحث بالمواصفات أو ارفع صورة للسيارة</div>
+    <div class="hero-lights">
+        <span class="hero-light"></span>
+        <span class="hero-light"></span>
+    </div>
+    <div class="hero-content">
+        <div class="hero-kicker">✦ SMART CAR MARKET</div>
+        <div class="hero-title">Apex <span>Motors</span></div>
+        <div class="hero-subtitle">اكتشف عربيتك المناسبة بذكاء — ابحث بالمواصفات أو ارفع صورة للسيارة</div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
