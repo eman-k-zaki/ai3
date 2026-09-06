@@ -38,7 +38,7 @@ BG_IMAGE = get_image_data(
 
 # CSS: شريط بحث مدمج في المنتصف مع أيقونة الكاميرا بالداخل
 # ==============================================================================
-st.markdown(f"""
+st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
     :root { --red:#ff3434; --white:#f5f5f5; --muted:#b8b8bc; }
@@ -187,7 +187,7 @@ st.markdown(f"""
         .hero-subtitle {{ font-size:.86rem; max-width:90%; }}
     }}
 </style>
-""", unsafe_allow_html=True)
+""".replace("{BG_IMAGE}", BG_IMAGE).replace("{HERO_IMAGE}", HERO_IMAGE), unsafe_allow_html=True)
 
 # صورة الخلفية فوق طبقة التطبيق وتحت كل عناصر الواجهة
 st.markdown('<div class="background-car"></div>', unsafe_allow_html=True)
