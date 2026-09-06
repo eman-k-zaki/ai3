@@ -56,16 +56,22 @@ html,body,[data-testid="stAppViewContainer"]{background:#050607!important;}
 .nav{display:flex;gap:32px;color:#d5d7dc;font-size:.82rem;font-weight:600;}
 .nav .active{color:#fff;position:relative;}.nav .active:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red);border-radius:10px;}
 /* Hero: no foreground image, only the page background */
-.hero-box{position:relative;min-height:320px;display:flex;align-items:center;justify-content:center;text-align:center;margin:0 auto;overflow:hidden;background:transparent;border:0;}
+.hero-box{position:relative;min-height:245px;display:flex;align-items:center;justify-content:center;text-align:center;margin:0 auto;overflow:hidden;background:transparent;border:0;}
 .hero-box:before{content:"";position:absolute;width:520px;height:520px;left:50%;top:50%;transform:translate(-50%,-48%);background:radial-gradient(circle,rgba(0,0,0,.42) 0%,rgba(0,0,0,.20) 42%,transparent 72%);z-index:0;}
 .hero-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;}
 .hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(0,0,0,.34);color:#e9e9eb;font-size:.67rem;font-weight:800;letter-spacing:3px;backdrop-filter:blur(9px);}
-.hero-title{margin:0;color:#fff;font-size:clamp(3.3rem,6vw,5.4rem);line-height:.9;font-weight:800;letter-spacing:-6px;text-shadow:0 10px 40px rgba(0,0,0,.9);}
+.hero-title{margin:0;color:#fff;font-size:clamp(2.8rem,5vw,4.5rem);line-height:.9;font-weight:800;letter-spacing:-6px;text-shadow:0 10px 40px rgba(0,0,0,.9);}
 .hero-title span{color:var(--red);}
-.hero-subtitle{color:#e1e3e7;font-size:1.02rem;max-width:620px;margin:12px auto 0;line-height:1.55;text-shadow:0 3px 18px #000;}
-.hero-line{width:75px;height:3px;background:var(--red);border-radius:99px;margin:12px auto 0;box-shadow:0 0 22px rgba(255,52,52,.45);}
+.hero-subtitle{color:#e1e3e7;font-size:.94rem;max-width:620px;margin:10px auto 0;line-height:1.55;text-shadow:0 3px 18px #000;}
+.hero-line{width:62px;height:3px;background:var(--red);border-radius:99px;margin:10px auto 0;box-shadow:0 0 22px rgba(255,52,52,.45);}
 /* Search */
-.search-wrap{position:relative;z-index:10;margin:-2px auto 0;width:min(620px,100%);}
+.feature-row{position:relative;z-index:3;display:grid;grid-template-columns:repeat(4,1fr);max-width:760px;margin:4px auto 12px;gap:0;}
+.feature-item{text-align:center;padding:5px 18px;border-right:1px solid rgba(255,255,255,.16);}
+.feature-item:last-child{border-right:0;}
+.feature-icon{color:var(--red);font-size:1rem;margin-bottom:3px;}
+.feature-title{color:#fff;font-size:.78rem;font-weight:700;}
+.feature-desc{color:#aeb2ba;font-size:.65rem;margin-top:2px;}
+.search-wrap{position:relative;z-index:10;margin:0 auto;width:min(560px,100%);}
 [data-testid="stTextInput"]{position:relative;z-index:10;width:100%;margin:0 auto!important;padding:5px!important;border:1px solid rgba(255,255,255,.23)!important;border-radius:999px!important;background:rgba(10,12,14,.70)!important;box-shadow:0 18px 55px rgba(0,0,0,.60)!important;backdrop-filter:blur(15px);}
 [data-testid="stTextInput"]:before{content:"";position:absolute;top:-1px;left:25%;width:50%;height:2px;border-radius:99px;background:linear-gradient(90deg,transparent,#fff,var(--red),#fff,transparent);}
 [data-testid="stTextInput"] input{background:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.12)!important;color:#fff!important;border-radius:999px!important;height:46px!important;padding:0 54px 0 20px!important;font-size:1rem!important;direction:ltr;text-align:left;}
@@ -89,7 +95,7 @@ html,body,[data-testid="stAppViewContainer"]{background:#050607!important;}
 .deal-badge-overpriced{background:rgba(239,68,68,.13);border:1px solid rgba(239,68,68,.65);color:#fca5a5;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.85rem;}
 .deal-badge-fair{background:rgba(234,179,8,.13);border:1px solid rgba(234,179,8,.65);color:#fde047;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.85rem;}
 .empty-state{text-align:center;color:#b8bcc4;margin-top:36px;text-shadow:0 2px 12px #000;}
-@media(max-width:700px){.hero-box{min-height:310px}.hero-title{font-size:3.1rem;letter-spacing:-2px}.hero-subtitle{font-size:.86rem;max-width:90%}.search-wrap{width:94%}.background-car{background-position:center;opacity:.72;}}
+@media(max-width:700px){.hero-box{min-height:225px}.hero-title{font-size:2.8rem;letter-spacing:-2px}.hero-subtitle{font-size:.86rem;max-width:90%}.search-wrap{width:92%}.feature-row{grid-template-columns:repeat(2,1fr);margin-top:4px}.feature-item{border-right:0;border-bottom:1px solid rgba(255,255,255,.12);padding:7px 10px}.feature-item:nth-child(odd){border-right:1px solid rgba(255,255,255,.12)}.feature-item:nth-child(3),.feature-item:nth-child(4){border-bottom:0}.background-car{background-position:center;opacity:.72;}}
 </style>
 """.replace("{BG_IMAGE}", BG_IMAGE), unsafe_allow_html=True)
 
@@ -205,6 +211,15 @@ st.markdown("""
         <div class="hero-line"></div>
         <div class="hero-subtitle">Find the right car, get expert insights, and make smarter decisions with the power of AI.</div>
     </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="feature-row">
+    <div class="feature-item"><div class="feature-icon">⌁</div><div class="feature-title">Analysis</div><div class="feature-desc">Understand your needs</div></div>
+    <div class="feature-item"><div class="feature-icon">▧</div><div class="feature-title">Image Detection</div><div class="feature-desc">Identify car details</div></div>
+    <div class="feature-item"><div class="feature-icon">◇</div><div class="feature-title">Price Prediction</div><div class="feature-desc">Get fair market value</div></div>
+    <div class="feature-item"><div class="feature-icon">▥</div><div class="feature-title">Smart Results</div><div class="feature-desc">Best matches for you</div></div>
 </div>
 """, unsafe_allow_html=True)
 
