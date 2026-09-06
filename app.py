@@ -30,7 +30,6 @@ def get_image_data(paths, mime):
             return f"data:{mime};base64,{encoded}"
     return ""
 
-HERO_IMAGE = ""
 BG_IMAGE = get_image_data(
     ["background_car.png", "Untitled design.png", "hero_background.png"],
     "image/png"
@@ -48,7 +47,7 @@ html,body,[data-testid="stAppViewContainer"]{background:#050607!important;}
 .background-car{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("{BG_IMAGE}");background-size:cover;background-position:center;background-repeat:no-repeat;opacity:.82;}
 .background-car:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.34) 48%,rgba(0,0,0,.58) 100%),linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.08) 46%,rgba(0,0,0,.72) 100%);}
 .background-car:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,52,52,.06),transparent 34%);}
-.main .block-container{position:relative;z-index:2;max-width:1180px;padding-top:0.5rem;padding-bottom:4rem;}
+.main .block-container{position:relative;z-index:2;max-width:1180px;padding-top:0;padding-bottom:3rem;}
 /* Minimal top brand */
 .top-brand{display:flex;align-items:center;justify-content:space-between;padding:20px 8px 0;margin-bottom:12px;}
 .brand{font-size:1.45rem;font-weight:800;letter-spacing:-.8px;color:#fff;}
@@ -57,38 +56,31 @@ html,body,[data-testid="stAppViewContainer"]{background:#050607!important;}
 .nav{display:flex;gap:32px;color:#d5d7dc;font-size:.82rem;font-weight:600;}
 .nav .active{color:#fff;position:relative;}.nav .active:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red);border-radius:10px;}
 /* Hero: no foreground image, only the page background */
-.hero-box{position:relative;min-height:445px;display:flex;align-items:center;justify-content:center;text-align:center;margin:0 auto;overflow:hidden;background:transparent;border:0;}
+.hero-box{position:relative;min-height:320px;display:flex;align-items:center;justify-content:center;text-align:center;margin:0 auto;overflow:hidden;background:transparent;border:0;}
 .hero-box:before{content:"";position:absolute;width:520px;height:520px;left:50%;top:50%;transform:translate(-50%,-48%);background:radial-gradient(circle,rgba(0,0,0,.42) 0%,rgba(0,0,0,.20) 42%,transparent 72%);z-index:0;}
 .hero-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;}
-.hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;margin-bottom:22px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(0,0,0,.34);color:#e9e9eb;font-size:.67rem;font-weight:800;letter-spacing:3px;backdrop-filter:blur(9px);}
-.hero-title{margin:0;color:#fff;font-size:clamp(4rem,8vw,7rem);line-height:.9;font-weight:800;letter-spacing:-6px;text-shadow:0 10px 40px rgba(0,0,0,.9);}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(0,0,0,.34);color:#e9e9eb;font-size:.67rem;font-weight:800;letter-spacing:3px;backdrop-filter:blur(9px);}
+.hero-title{margin:0;color:#fff;font-size:clamp(3.3rem,6vw,5.4rem);line-height:.9;font-weight:800;letter-spacing:-6px;text-shadow:0 10px 40px rgba(0,0,0,.9);}
 .hero-title span{color:var(--red);}
-.hero-subtitle{color:#e1e3e7;font-size:1.02rem;max-width:620px;margin:22px auto 0;line-height:1.7;text-shadow:0 3px 18px #000;}
-.hero-line{width:75px;height:3px;background:var(--red);border-radius:99px;margin:22px auto 0;box-shadow:0 0 22px rgba(255,52,52,.45);}
+.hero-subtitle{color:#e1e3e7;font-size:1.02rem;max-width:620px;margin:12px auto 0;line-height:1.55;text-shadow:0 3px 18px #000;}
+.hero-line{width:75px;height:3px;background:var(--red);border-radius:99px;margin:12px auto 0;box-shadow:0 0 22px rgba(255,52,52,.45);}
 /* Search */
-.search-wrap{position:relative;z-index:10;margin:-2px auto 0;width:min(820px,100%);}
-[data-testid="stTextInput"]{position:relative;z-index:10;width:100%;margin:0 auto!important;padding:7px!important;border:1px solid rgba(255,255,255,.23)!important;border-radius:999px!important;background:rgba(10,12,14,.70)!important;box-shadow:0 18px 55px rgba(0,0,0,.60)!important;backdrop-filter:blur(15px);}
+.search-wrap{position:relative;z-index:10;margin:-2px auto 0;width:min(620px,100%);}
+[data-testid="stTextInput"]{position:relative;z-index:10;width:100%;margin:0 auto!important;padding:5px!important;border:1px solid rgba(255,255,255,.23)!important;border-radius:999px!important;background:rgba(10,12,14,.70)!important;box-shadow:0 18px 55px rgba(0,0,0,.60)!important;backdrop-filter:blur(15px);}
 [data-testid="stTextInput"]:before{content:"";position:absolute;top:-1px;left:25%;width:50%;height:2px;border-radius:99px;background:linear-gradient(90deg,transparent,#fff,var(--red),#fff,transparent);}
-[data-testid="stTextInput"] input{background:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.12)!important;color:#fff!important;border-radius:999px!important;height:58px!important;padding:0 68px 0 22px!important;font-size:1rem!important;direction:ltr;text-align:left;}
+[data-testid="stTextInput"] input{background:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.12)!important;color:#fff!important;border-radius:999px!important;height:46px!important;padding:0 54px 0 20px!important;font-size:1rem!important;direction:ltr;text-align:left;}
 [data-testid="stTextInput"] input::placeholder{color:#b9bcc2!important;}
 [data-testid="stTextInput"] input:focus{border-color:rgba(255,52,52,.8)!important;box-shadow:0 0 0 3px rgba(255,52,52,.07),0 0 25px rgba(255,52,52,.14)!important;}
 /* Camera uploader */
-[data-testid="stFileUploader"]{margin-top:-58px!important;height:58px!important;display:flex!important;justify-content:flex-end!important;align-items:center!important;padding-right:16px!important;pointer-events:none!important;border:none!important;background:transparent!important;position:relative;z-index:20;}
+[data-testid="stFileUploader"]{margin-top:-46px!important;height:46px!important;display:flex!important;justify-content:flex-end!important;align-items:center!important;padding-right:8px!important;pointer-events:none!important;border:none!important;background:transparent!important;position:relative;z-index:20;}
 [data-testid="stFileUploader"] section{padding:0!important;min-height:unset!important;border:none!important;background:transparent!important;pointer-events:auto!important;}
 [data-testid="stFileUploaderDropzone"]{padding:0!important;border:none!important;background:transparent!important;}
 [data-testid="stFileUploaderDropzoneInstructions"],[data-testid="stFileUploaderDropzone"]>div:not(:has(button)){display:none!important;}
-[data-testid="stFileUploader"] button{width:42px!important;height:42px!important;border-radius:50%!important;background:rgba(15,15,17,.88)!important;border:1px solid rgba(255,52,52,.55)!important;padding:4px!important;color:#fff!important;transition:.2s ease!important;}
+[data-testid="stFileUploader"] button{width:34px!important;height:34px!important;border-radius:50%!important;background:rgba(15,15,17,.88)!important;border:1px solid rgba(255,52,52,.55)!important;padding:4px!important;color:#fff!important;transition:.2s ease!important;}
 [data-testid="stFileUploader"] button:hover{transform:scale(1.08);background:rgba(255,52,52,.14)!important;border-color:var(--red)!important;}
-[data-testid="stFileUploader"] button:before{content:"📷";font-size:1.05rem;}
+[data-testid="stFileUploader"] button:before{content:"📷";font-size:.88rem;}
 [data-testid="stFileUploader"] button span,[data-testid="stFileUploader"] button p{display:none!important;}
 [data-testid="stFileUploaderFile"]{margin-top:14px!important;background:rgba(5,5,6,.90)!important;border:1px solid rgba(255,255,255,.15)!important;border-radius:12px!important;}
-/* Feature row */
-.features{display:flex;justify-content:center;align-items:stretch;gap:0;margin:62px auto 25px;max-width:850px;background:rgba(0,0,0,.20);backdrop-filter:blur(5px);}
-.feature{flex:1;text-align:center;padding:0 22px;border-right:1px solid rgba(255,255,255,.20);}
-.feature:last-child{border-right:0;}
-.feature-icon{font-size:1.35rem;color:var(--red);margin-bottom:9px;}
-.feature-title{font-size:.86rem;font-weight:700;color:#fff;}
-.feature-text{font-size:.68rem;color:#aeb2b9;margin-top:6px;line-height:1.5;}
 /* Results */
 .results-title{color:#fff;font-size:1.15rem;font-weight:700;margin:30px 0 18px;text-align:left;}
 .car-card{background:rgba(5,6,8,.78);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:22px;margin-bottom:16px;box-shadow:0 16px 40px rgba(0,0,0,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
@@ -97,7 +89,7 @@ html,body,[data-testid="stAppViewContainer"]{background:#050607!important;}
 .deal-badge-overpriced{background:rgba(239,68,68,.13);border:1px solid rgba(239,68,68,.65);color:#fca5a5;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.85rem;}
 .deal-badge-fair{background:rgba(234,179,8,.13);border:1px solid rgba(234,179,8,.65);color:#fde047;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.85rem;}
 .empty-state{text-align:center;color:#b8bcc4;margin-top:36px;text-shadow:0 2px 12px #000;}
-@media(max-width:700px){.nav{display:none}.top-brand{padding:15px 3px}.hero-box{min-height:390px}.hero-title{font-size:3.7rem;letter-spacing:-3px}.hero-subtitle{font-size:.86rem;max-width:90%}.features{margin-top:42px;flex-wrap:wrap;gap:20px;background:transparent}.feature{min-width:45%;border-right:0}.search-wrap{width:94%}.background-car{background-position:center;opacity:.72;}}
+@media(max-width:700px){.hero-box{min-height:310px}.hero-title{font-size:3.1rem;letter-spacing:-2px}.hero-subtitle{font-size:.86rem;max-width:90%}.search-wrap{width:94%}.background-car{background-position:center;opacity:.72;}}
 </style>
 """.replace("{BG_IMAGE}", BG_IMAGE), unsafe_allow_html=True)
 
@@ -138,7 +130,7 @@ try:
     (device, df_recommend, full_pricing_pipeline, tfidf, tfidf_matrix,
      st_model, car_text_embeddings, img_processor, car_vision_model) = load_all()
 except Exception as e:
-    st.error(f"⚠️ خطأ في تحميل ملفات المشروع: {e}")
+    st.error(f"⚠️ Project loading error: {e}")
     st.stop()
 
 # ==============================================================================
@@ -206,10 +198,6 @@ def predict_vision_top5(image_pil, top_k=5):
 # 3. واجهة البحث في المنتصف تماماً
 # ==============================================================================
 st.markdown("""
-<div class="top-brand">
-    <div class="brand"><span class="brand-mark">⌁</span>Apex <span>Motors</span></div>
-    <div class="nav"><span class="active">Home</span><span>About</span><span>Features</span><span>Contact</span></div>
-</div>
 <div class="hero-box">
     <div class="hero-content">
         <div class="hero-kicker">✦ SMART CAR MARKET</div>
@@ -217,12 +205,6 @@ st.markdown("""
         <div class="hero-line"></div>
         <div class="hero-subtitle">Find the right car, get expert insights, and make smarter decisions with the power of AI.</div>
     </div>
-</div>
-<div class="features">
-    <div class="feature"><div class="feature-icon">⌁</div><div class="feature-title">NLP Analysis</div><div class="feature-text">Understand your needs</div></div>
-    <div class="feature"><div class="feature-icon">▧</div><div class="feature-title">Image Detection</div><div class="feature-text">Identify car details</div></div>
-    <div class="feature"><div class="feature-icon">◇</div><div class="feature-title">Price Prediction</div><div class="feature-text">Get fair market value</div></div>
-    <div class="feature"><div class="feature-icon">▥</div><div class="feature-title">Smart Results</div><div class="feature-text">Best matches for you</div></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -350,7 +332,7 @@ if has_query or has_image:
             price_val = int(row.get("price", 0)) if pd.notna(row.get("price")) else 0
             fair_val = int(row.get("predicted_fair_price", 0)) if pd.notna(row.get("predicted_fair_price")) else 0
             deal_tag = row.get("deal_label", "Fair Price")
-            loc_val = row.get("location", "مصر")
+            loc_val = row.get("location", "Egypt")
             item_link = row.get("item_url", "#")
 
             if deal_tag == "Great Deal":
@@ -392,6 +374,6 @@ if has_query or has_image:
 else:
     st.markdown("""
     <div style="text-align: center; color: #64748b; margin-top: 30px;">
-        <p style="font-size: 1.05rem;">Type your car requirements and press <strong>Enter</strong>, or use the camera 📷 to upload a car image</p>
+        <p style="font-size: 1.05rem;">Type your car requirements and press <strong>Enter</strong>, or click the camera 📷 to upload a car image</p>
     </div>
     """, unsafe_allow_html=True)
