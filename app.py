@@ -19,64 +19,97 @@ st.set_page_config(
 )
 
 # ==============================================================================
-# CSS: شريط بحث مدمج في المنتصف مع أيقونة الكاميرا بالداخل
+# CSS: تصميم Premium داكن مستوحى من تصوير السيارات الاحترافي (Black & White)
 # ==============================================================================
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
+    html, body, [class*="css"] { font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif; }
+
+    /* خلفية سينمائية مستوحاة من استوديو تصوير السيارات: إضاءة علوية + عمق */
     .stApp {
-        background: radial-gradient(130% 100% at 50% -10%, #0d1b2a 0%, #060d17 60%, #020509 100%);
+        background:
+            radial-gradient(60% 45% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(56, 189, 248, 0) 70%),
+            radial-gradient(90% 60% at 50% 110%, rgba(129, 140, 248, 0.10) 0%, rgba(2, 5, 9, 0) 60%),
+            linear-gradient(180deg, #05080f 0%, #03060b 45%, #010204 100%);
         color: #f8fafc;
-        font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* العنوان الرئيسي في المنتصف */
-    .hero-box {
-        text-align: center;
-        padding: 55px 15px 25px 15px;
+    #MainMenu, footer, header { visibility: hidden; }
+
+    /* شريط علوي رفيع بهوية العلامة */
+    .brand-strip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 0 0 0;
+        letter-spacing: 3px;
+        font-size: 0.72rem;
+        color: #64748b;
+        text-transform: uppercase;
+        font-weight: 600;
     }
+    .brand-strip span.dot { width: 5px; height: 5px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+
+    /* العنوان الرئيسي */
+    .hero-box { text-align: center; padding: 30px 15px 34px 15px; }
     .hero-title {
-        font-size: 2.8rem;
-        font-weight: 800;
-        background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+        font-size: 3.4rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+        background: linear-gradient(100deg, #f8fafc 15%, #38bdf8 55%, #818cf8 80%, #c084fc 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 6px;
+        background-clip: text;
+        margin-bottom: 10px;
+        line-height: 1.1;
     }
     .hero-subtitle {
         color: #94a3b8;
-        font-size: 1.05rem;
+        font-size: 1.08rem;
+        font-weight: 500;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+    .hero-underline {
+        width: 64px; height: 3px; margin: 18px auto 0 auto;
+        background: linear-gradient(90deg, #38bdf8, #c084fc);
+        border-radius: 4px;
     }
 
-    /* شريط البحث الموحد */
+    /* شريط البحث الموحد - زجاجي فاخر */
     [data-testid="stTextInput"] input {
-        background: rgba(15, 23, 42, 0.9) !important;
-        border: 1.5px solid rgba(56, 189, 248, 0.35) !important;
+        background: rgba(10, 16, 28, 0.72) !important;
+        backdrop-filter: blur(14px) saturate(140%);
+        border: 1.5px solid rgba(148, 163, 184, 0.22) !important;
         color: #ffffff !important;
-        border-radius: 40px !important;
-        height: 60px !important;
-        padding-left: 25px !important;
-        padding-right: 65px !important;
-        font-size: 1.1rem !important;
-        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6) !important;
-        transition: all 0.3s ease !important;
+        border-radius: 46px !important;
+        height: 64px !important;
+        padding-left: 26px !important;
+        padding-right: 68px !important;
+        font-size: 1.08rem !important;
+        font-weight: 500;
+        box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+        transition: all 0.25s ease !important;
         direction: rtl;
         text-align: right;
     }
+    [data-testid="stTextInput"] input::placeholder { color: #64748b !important; font-weight: 400; }
     [data-testid="stTextInput"] input:focus {
-        border-color: #38bdf8 !important;
-        box-shadow: 0 0 25px rgba(56, 189, 248, 0.45) !important;
+        border-color: rgba(56, 189, 248, 0.65) !important;
+        box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.12), 0 20px 45px -12px rgba(0,0,0,0.8) !important;
     }
 
-    /* رفع زرار الصورة ليدخل جوه شريط البحث كأيقونة */
+    /* رفع زرار الصورة ليدخل جوه شريط البحث كأيقونة كاميرا نيون */
     [data-testid="stFileUploader"] {
-        margin-top: -60px !important;
-        height: 60px !important;
+        margin-top: -64px !important;
+        height: 64px !important;
         display: flex !important;
         justify-content: flex-end !important;
         align-items: center !important;
-        padding-right: 18px !important;
+        padding-right: 20px !important;
         pointer-events: none !important;
         border: none !important;
         background: transparent !important;
@@ -88,89 +121,145 @@ st.markdown("""
         background: transparent !important;
         pointer-events: auto !important;
     }
-    [data-testid="stFileUploaderDropzone"] {
-        padding: 0 !important;
-        border: none !important;
-        background: transparent !important;
-    }
+    [data-testid="stFileUploaderDropzone"] { padding: 0 !important; border: none !important; background: transparent !important; }
     [data-testid="stFileUploaderDropzoneInstructions"],
-    [data-testid="stFileUploaderDropzone"] > div:not(:has(button)) {
-        display: none !important;
-    }
+    [data-testid="stFileUploaderDropzone"] > div:not(:has(button)) { display: none !important; }
 
-    /* تحويل الزرار لأيقونة كاميرا نيون */
     [data-testid="stFileUploader"] button {
-        background: transparent !important;
-        border: none !important;
+        background: rgba(56, 189, 248, 0.10) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
         box-shadow: none !important;
-        padding: 4px !important;
+        padding: 0 !important;
         cursor: pointer !important;
         color: #38bdf8 !important;
-        transition: transform 0.2s ease !important;
+        transition: all 0.2s ease !important;
     }
     [data-testid="stFileUploader"] button:hover {
-        transform: scale(1.2);
+        transform: scale(1.1);
+        background: rgba(56, 189, 248, 0.2) !important;
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.45) !important;
     }
-    [data-testid="stFileUploader"] button::before {
-        content: "📷";
-        font-size: 1.45rem;
-    }
+    [data-testid="stFileUploader"] button::before { content: "📷"; font-size: 1.25rem; }
     [data-testid="stFileUploader"] button span,
-    [data-testid="stFileUploader"] button p {
-        display: none !important;
-    }
+    [data-testid="stFileUploader"] button p { display: none !important; }
 
     /* اسم الملف بعد الرفع */
     [data-testid="stFileUploaderFile"] {
-        margin-top: 15px !important;
-        background: rgba(15, 23, 42, 0.85) !important;
-        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        margin-top: 14px !important;
+        background: rgba(10, 16, 28, 0.85) !important;
+        border: 1px solid rgba(56, 189, 248, 0.28) !important;
         border-radius: 12px !important;
         pointer-events: auto !important;
     }
 
-    /* كروت النتائج */
-    .car-card {
-        background: rgba(15, 23, 42, 0.75);
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        border-radius: 16px;
-        padding: 22px;
-        margin-bottom: 16px;
-        transition: all 0.2s ease;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    /* عنوان النتائج */
+    .results-heading {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 1.15rem; font-weight: 700; color: #e2e8f0;
+        margin: 6px 0 18px 0;
     }
-    .car-card:hover {
-        border-color: rgba(56, 189, 248, 0.6);
-        transform: translateY(-2px);
+    .results-heading .bar { width: 4px; height: 20px; background: linear-gradient(180deg, #38bdf8, #818cf8); border-radius: 4px; }
+
+    /* شارة التعرف على السيارة بالصورة */
+    .vision-badge-wrap { text-align: center; margin: 10px 0 24px 0; }
+    .vision-badge {
+        display: inline-flex; align-items: center; gap: 8px;
+        background: linear-gradient(135deg, rgba(56,189,248,0.14), rgba(129,140,248,0.10));
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        color: #bae6fd; padding: 8px 20px; border-radius: 30px; font-size: 0.95rem; font-weight: 600;
     }
 
+    /* كروت النتائج - فخمة مع عمق */
+    .car-card {
+        position: relative;
+        background: linear-gradient(155deg, rgba(15, 23, 42, 0.85), rgba(8, 12, 22, 0.85));
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        border-radius: 18px;
+        padding: 24px 26px;
+        margin-bottom: 18px;
+        overflow: hidden;
+        transition: all 0.25s cubic-bezier(.2,.8,.2,1);
+        box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.6);
+    }
+    .car-card::before {
+        content: "";
+        position: absolute; inset: 0;
+        background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+        opacity: 0; transition: opacity 0.25s ease;
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        padding: 1.5px; border-radius: 18px;
+        -webkit-mask-composite: xor; mask-composite: exclude;
+        pointer-events: none;
+    }
+    .car-card:hover { transform: translateY(-3px); box-shadow: 0 20px 45px -12px rgba(56, 189, 248, 0.18); }
+    .car-card:hover::before { opacity: 0.55; }
+
+    .car-title { font-size: 1.4rem; font-weight: 800; color: #ffffff; }
+    .car-title .year { color: #38bdf8; font-weight: 800; }
+
+    .spec-label { color: #64748b; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px; }
+    .spec-value-main { color: #ffffff; font-size: 1.3rem; font-weight: 800; }
+    .spec-value-alt { color: #38bdf8; font-size: 1.3rem; font-weight: 800; }
+    .spec-value-loc { color: #cbd5e1; font-size: 1.05rem; font-weight: 600; }
+
+    .cta-link {
+        display: inline-block;
+        background: linear-gradient(135deg, rgba(56,189,248,0.16), rgba(129,140,248,0.12));
+        border: 1px solid rgba(56, 189, 248, 0.5);
+        color: #7dd3fc;
+        padding: 9px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition: all 0.2s ease;
+    }
+    .cta-link:hover { background: rgba(56, 189, 248, 0.28); color: #ffffff; }
+
     .deal-badge-great {
-        background: rgba(34, 197, 94, 0.15);
-        border: 1px solid #22c55e;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.55);
         color: #4ade80;
         font-weight: 700;
-        padding: 4px 12px;
+        padding: 5px 14px;
         border-radius: 20px;
         font-size: 0.85rem;
     }
     .deal-badge-overpriced {
-        background: rgba(239, 68, 68, 0.15);
-        border: 1px solid #ef4444;
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid rgba(239, 68, 68, 0.55);
         color: #f87171;
         font-weight: 700;
-        padding: 4px 12px;
+        padding: 5px 14px;
         border-radius: 20px;
         font-size: 0.85rem;
     }
     .deal-badge-fair {
-        background: rgba(234, 179, 8, 0.15);
-        border: 1px solid #eab308;
+        background: rgba(234, 179, 8, 0.12);
+        border: 1px solid rgba(234, 179, 8, 0.55);
         color: #facc15;
         font-weight: 700;
-        padding: 4px 12px;
+        padding: 5px 14px;
         border-radius: 20px;
         font-size: 0.85rem;
     }
+
+    /* حالة عدم وجود بحث */
+    .empty-state {
+        text-align: center;
+        color: #64748b;
+        margin-top: 40px;
+        padding: 34px 20px;
+        border: 1px dashed rgba(148, 163, 184, 0.2);
+        border-radius: 18px;
+        max-width: 640px;
+        margin-left: auto; margin-right: auto;
+    }
+    .empty-state p { font-size: 1.02rem; margin: 0; }
+    .empty-state .icon { font-size: 1.6rem; margin-bottom: 10px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -276,9 +365,11 @@ def predict_vision_top5(image_pil, top_k=5):
 # 3. واجهة البحث في المنتصف تماماً
 # ==============================================================================
 st.markdown("""
+<div class="brand-strip"><span class="dot"></span> APEX MOTORS INTELLIGENCE <span class="dot"></span></div>
 <div class="hero-box">
     <div class="hero-title">Apex Motors</div>
     <div class="hero-subtitle">محرك البحث الذكي وتقييم أسعار السيارات في السوق المصري</div>
+    <div class="hero-underline"></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -320,13 +411,11 @@ if has_query or has_image:
         try:
             pil_img = Image.open(uploaded_file)
             preds = predict_vision_top5(pil_img)
-            
+
             top_car_label = preds[0]['label']
             st.markdown(f"""
-            <div style="text-align: center; margin-top: 15px; margin-bottom: 20px;">
-                <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #bae6fd; padding: 6px 18px; border-radius: 20px; font-size: 0.95rem;">
-                    📷 تم التعرف على السيارة: <strong>{top_car_label}</strong> ({preds[0]['confidence']*100:.1f}%)
-                </span>
+            <div class="vision-badge-wrap">
+                <span class="vision-badge">📷 تم التعرف على السيارة: <strong>{top_car_label}</strong> ({preds[0]['confidence']*100:.1f}%)</span>
             </div>
             """, unsafe_allow_html=True)
 
@@ -342,7 +431,7 @@ if has_query or has_image:
                     if not subset.empty:
                         subset["vision_confidence"] = p["confidence"]
                         matched_rows = pd.concat([matched_rows, subset])
-                
+
                 dedup_cols = [c for c in ["brand", "model", "year"] if c in matched_rows.columns]
                 if not matched_rows.empty and dedup_cols:
                     sub_df = matched_rows.drop_duplicates(subset=dedup_cols).copy()
@@ -397,7 +486,7 @@ if has_query or has_image:
 
     _, col_results, _ = st.columns([1, 2.6, 1])
     with col_results:
-        st.write("### أفضل النتائج المطابقة:")
+        st.markdown('<div class="results-heading"><span class="bar"></span> أفضل النتائج المطابقة</div>', unsafe_allow_html=True)
 
         for _, row in top_results.iterrows():
             b_name = row.get("brand", "")
@@ -418,36 +507,33 @@ if has_query or has_image:
 
             st.markdown(f"""
             <div class="car-card">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 1.35rem; font-weight: 700; color: #ffffff;">
-                        {b_name} {m_name} <span style="color: #38bdf8;">{y_val}</span>
-                    </span>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <span class="car-title">{b_name} {m_name} <span class="year">{y_val}</span></span>
                     <div>{badge_html}</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; flex-wrap: wrap; gap: 14px;">
                     <div>
-                        <span style="color: #94a3b8; font-size: 0.85rem;">السعر المعروض:</span><br>
-                        <strong style="color: #ffffff; font-size: 1.25rem;">{price_val:,.0f} EGP</strong>
+                        <span class="spec-label">السعر المعروض</span><br>
+                        <span class="spec-value-main">{price_val:,.0f} EGP</span>
                     </div>
                     <div>
-                        <span style="color: #94a3b8; font-size: 0.85rem;">السعر العادل المقدر:</span><br>
-                        <strong style="color: #38bdf8; font-size: 1.25rem;">{fair_val:,.0f} EGP</strong>
+                        <span class="spec-label">السعر العادل المقدر</span><br>
+                        <span class="spec-value-alt">{fair_val:,.0f} EGP</span>
                     </div>
                     <div>
-                        <span style="color: #94a3b8; font-size: 0.85rem;">المحافظة:</span><br>
-                        <span style="color: #cbd5e1; font-size: 1.05rem;">📍 {loc_val}</span>
+                        <span class="spec-label">المحافظة</span><br>
+                        <span class="spec-value-loc">📍 {loc_val}</span>
                     </div>
                     <div>
-                        <a href="{item_link}" target="_blank" style="display: inline-block; background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #38bdf8; padding: 8px 18px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem;">
-                            معاينة الإعلان ↗
-                        </a>
+                        <a href="{item_link}" target="_blank" class="cta-link">معاينة الإعلان ↗</a>
                     </div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
 else:
     st.markdown("""
-    <div style="text-align: center; color: #64748b; margin-top: 30px;">
-        <p style="font-size: 1.05rem;">اكتب مواصفات العربية واضغط <strong>Enter</strong> مباشرة، أو اضغط على أيقونة الكاميرا 📷 لرفع صورة عربية</p>
+    <div class="empty-state">
+        <div class="icon">🔎</div>
+        <p>اكتب مواصفات العربية واضغط <strong>Enter</strong> مباشرة، أو اضغط على أيقونة الكاميرا 📷 لرفع صورة عربية</p>
     </div>
     """, unsafe_allow_html=True)
